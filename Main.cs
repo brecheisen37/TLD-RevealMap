@@ -21,23 +21,36 @@ namespace TLD_Mod1
             MelonDebug.Msg($"[{Info.Name}] Version {Info.Version} loaded!");
 
         }
+
+        bool SettingMatchesGamemode()
+        {
+            if (GameManager.IsTrialMode()) { return false; }
+            if (Settings.Settings.options.story && GameManager.IsStoryMode()) { return true; }
+            if (Settings.Settings.options.survival) { return true; }
+            return false;
+
+        }
         public override void OnUpdate()
         {
-            if (InterfaceManager.m_Panel_Map == null) MelonDebug.Msg("asdftext: m_Panel_Map == null");
-            else
-            if (InterfaceManager.m_Panel_Map.m_LastUpdatedLabel == null) MelonDebug.Msg("m_LastUpdatedLabel = null");
-            else
-            if (InterfaceManager.m_Panel_Map.m_LastUpdatedLabel.text == null) MelonDebug.Msg("asdftext: m_Panel_Map.m_LastUpdatedLabel.text = null");
-            else
+            if(SettingMatchesGamemode())
             {
-                if (InterfaceManager.m_Panel_Map.m_LastUpdatedLabel.text != Localization.Get("GAMEPLAY_MapLastUpdateJustNow")) { InterfaceManager.m_Panel_Map.RevealCurrentScene(); }
+                    if (InterfaceManager.m_Panel_Map == null) MelonDebug.Msg("asdftext: m_Panel_Map == null");
+                    else
+                    if (InterfaceManager.m_Panel_Map.m_LastUpdatedLabel == null) MelonDebug.Msg("m_LastUpdatedLabel = null");
+                    else
+                    if (InterfaceManager.m_Panel_Map.m_LastUpdatedLabel.text == null) MelonDebug.Msg("asdftext: m_Panel_Map.m_LastUpdatedLabel.text = null");
+                    else
+                    {
+                        if (InterfaceManager.m_Panel_Map.m_LastUpdatedLabel.text != Localization.Get("GAMEPLAY_MapLastUpdateJustNow")) { InterfaceManager.m_Panel_Map.RevealCurrentScene(); }
+                    }
+                
+
             }
-            
         }
         
         public override void OnApplicationStart()
         {
-            
+            Settings.Settings.OnLoad();
         }
 
     }
