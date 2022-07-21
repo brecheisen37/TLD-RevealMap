@@ -21,7 +21,6 @@ namespace TLD_Mod1
             MelonDebug.Msg($"[{Info.Name}] Version {Info.Version} loaded!");
 
         }
-        DetailSurveyPosition dsp = new DetailSurveyPosition();
         public override void OnUpdate()
         {
             if (InterfaceManager.m_Panel_Map == null) MelonDebug.Msg("asdftext: m_Panel_Map == null");
@@ -36,8 +35,6 @@ namespace TLD_Mod1
             
         }
         
-        
-
         public override void OnApplicationStart()
         {
             
