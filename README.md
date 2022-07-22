@@ -12,6 +12,9 @@ Automatically reveals the map.
 
 ## Changelog
 
+### 1.2.0
+improved performance
+
 ### 1.1.0
 Added Settings Page
 
