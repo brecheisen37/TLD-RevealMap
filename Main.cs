@@ -9,7 +9,7 @@ using MelonLoader;
 using ModSettings;
 using UnityEngine;
 
-namespace TLD_Mod1
+namespace RevealMap
 {
 
 
@@ -19,21 +19,28 @@ namespace TLD_Mod1
         public override void OnApplicationLateStart()
         {
             MelonDebug.Msg($"[{Info.Name}] Version {Info.Version} loaded!");
-
         }
 
-        bool SettingMatchesGamemode()
+        static bool SettingMatchesGamemode;
+        public static void UpdateSettingMatchesGamemode()
+        {
+            SettingMatchesGamemode = settingMatchesGamemode();
+        }
+        static bool settingMatchesGamemode()
         {
             if (GameManager.IsTrialMode()) { return false; }
             if (Settings.Settings.options.story && GameManager.IsStoryMode()) { return true; }
             if (Settings.Settings.options.survival) { return true; }
             return false;
-
         }
+
+        bool MapBeingOpened = false;
+        bool lastmapenabled = false;
         public override void OnUpdate()
         {
-            if(SettingMatchesGamemode())
+            if(SettingMatchesGamemode)
             {
+                /*
                     if (InterfaceManager.m_Panel_Map == null) MelonDebug.Msg("asdftext: m_Panel_Map == null");
                     else
                     if (InterfaceManager.m_Panel_Map.m_LastUpdatedLabel == null) MelonDebug.Msg("m_LastUpdatedLabel = null");
@@ -43,7 +50,16 @@ namespace TLD_Mod1
                     {
                         if (InterfaceManager.m_Panel_Map.m_LastUpdatedLabel.text != Localization.Get("GAMEPLAY_MapLastUpdateJustNow")) { InterfaceManager.m_Panel_Map.RevealCurrentScene(); }
                     }
-                
+                */
+
+                bool mapenabled = InterfaceManager.m_Panel_Map.enabled;
+                if(mapenabled && !lastmapenabled) MapBeingOpened = true;
+                if (MapBeingOpened)
+                {
+                    InterfaceManager.m_Panel_Map.RevealCurrentScene();
+                    MapBeingOpened=false;
+                }
+                lastmapenabled = mapenabled;
 
             }
         }
