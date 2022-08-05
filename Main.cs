@@ -13,63 +13,42 @@ namespace RevealMap
 {
 
 
-
     public class RevealMap_Melon : MelonMod
     {
         public override void OnApplicationLateStart()
         {
             MelonDebug.Msg($"[{Info.Name}] Version {Info.Version} loaded!");
         }
-
-        static bool SettingMatchesGamemode;
-        public static void UpdateSettingMatchesGamemode()
-        {
-            SettingMatchesGamemode = settingMatchesGamemode();
-        }
-        static bool settingMatchesGamemode()
-        {
-            if (GameManager.IsTrialMode()) { return false; }
-            if (Settings.Settings.options.story && GameManager.IsStoryMode()) { return true; }
-            if (Settings.Settings.options.survival) { return true; }
-            return false;
-        }
-
-        bool MapBeingOpened = false;
-        bool lastmapenabled = false;
-        public override void OnUpdate()
-        {
-            if(SettingMatchesGamemode)
-            {
-                /*
-                    if (InterfaceManager.m_Panel_Map == null) MelonDebug.Msg("asdftext: m_Panel_Map == null");
-                    else
-                    if (InterfaceManager.m_Panel_Map.m_LastUpdatedLabel == null) MelonDebug.Msg("m_LastUpdatedLabel = null");
-                    else
-                    if (InterfaceManager.m_Panel_Map.m_LastUpdatedLabel.text == null) MelonDebug.Msg("asdftext: m_Panel_Map.m_LastUpdatedLabel.text = null");
-                    else
-                    {
-                        if (InterfaceManager.m_Panel_Map.m_LastUpdatedLabel.text != Localization.Get("GAMEPLAY_MapLastUpdateJustNow")) { InterfaceManager.m_Panel_Map.RevealCurrentScene(); }
-                    }
-                */
-
-                bool mapenabled = InterfaceManager.m_Panel_Map.enabled;
-                if(mapenabled && !lastmapenabled) MapBeingOpened = true;
-                if (MapBeingOpened)
-                {
-                    InterfaceManager.m_Panel_Map.RevealCurrentScene();
-                    MapBeingOpened=false;
-                }
-                lastmapenabled = mapenabled;
-
-            }
-        }
-        
         public override void OnApplicationStart()
         {
             Settings.Settings.OnLoad();
         }
+		public override void OnUpdate()
+		{
+			base.OnUpdate();
+			RevealifTrue();
+		}
 
-    }
+		
+		static bool revealnextframe;
+		public static void RevealNextFrame() { revealnextframe = true; }
+
+		public static void RevealifTrue()
+		{
+			if (revealnextframe && InterfaceManager.m_Panel_Map != null && InterfaceManager.m_Panel_Map.IsEnabled()) 
+				Reveal();
+			revealnextframe = false;
+		}
+		static void Reveal()
+		{
+			if (InterfaceManager.m_Panel_Map.m_LastUpdatedLabel.text != Localization.Get("GAMEPLAY_MapLastUpdateJustNow"))
+			{
+				InterfaceManager.m_Panel_Map.RevealCurrentScene();
+				InterfaceManager.m_Panel_Map.Enable(true, true);
+			}
+			
+		}
+	}
 }
 
 
