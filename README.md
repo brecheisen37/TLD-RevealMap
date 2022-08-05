@@ -11,6 +11,8 @@ MelonLoader
 Automatically reveals the map.
 
 ## Changelog
+### 1.3.0
+fixed bug where map would sometimes not be revealed, added support for trial mode
 
 ### 1.2.0
 improved performance
