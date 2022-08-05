@@ -11,6 +11,11 @@ MelonLoader
 Automatically reveals the map.
 
 ## Changelog
+### 2.0
+fixed mod being enabled when not supposed to be, rewrote backend
+now works by updating the map when the map is opened and last updated time is not being displayed as "now"
+this means it will reveal the map at most once every in game hour, rather than every time the map is opened, improving performance.
+
 ### 1.3.0
 fixed bug where map would sometimes not be revealed, added support for trial mode
 
