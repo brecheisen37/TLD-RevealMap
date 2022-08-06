@@ -11,7 +11,11 @@ MelonLoader
 Automatically reveals the map.
 
 ## Changelog
-### 2.0
+
+### 2.1.0
+- fixes an issue where item labels would disappear when the map was reopened
+
+### 2.0.0
 fixed mod being enabled when not supposed to be, rewrote backend
 now works by updating the map when the map is opened and last updated time is not being displayed as "now"
 this means it will reveal the map at most once every in game hour, rather than every time the map is opened, improving performance.
