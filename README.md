@@ -13,7 +13,7 @@ Automatically reveals the map.
 ## Changelog
 
 ### 2.1.0
-- fixes an issue where item labels would disappear when the map was reopened
+fixed an issue where item labels would disappear when the map was reopened
 
 ### 2.0.0
 fixed mod being enabled when not supposed to be, rewrote backend
