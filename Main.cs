@@ -22,31 +22,15 @@ namespace RevealMap
         public override void OnApplicationStart()
         {
             Settings.Settings.OnLoad();
-        }
-		public override void OnUpdate()
-		{
-			base.OnUpdate();
-			RevealifTrue();
-		}
+        }	
 
-		
-		static bool revealnextframe;
-		public static void RevealNextFrame() { revealnextframe = true; }
-
-		public static void RevealifTrue()
-		{
-			if (revealnextframe && InterfaceManager.m_Panel_Map != null && InterfaceManager.m_Panel_Map.IsEnabled()) 
-				Reveal();
-			revealnextframe = false;
-		}
-		static void Reveal()
+		public static void Reveal()
 		{
 			if (InterfaceManager.m_Panel_Map.m_LastUpdatedLabel.text != Localization.Get("GAMEPLAY_MapLastUpdateJustNow"))
 			{
 				InterfaceManager.m_Panel_Map.RevealCurrentScene();
-				InterfaceManager.m_Panel_Map.Enable(true, true);
+				InterfaceManager.m_Panel_Map.ForceUpdateRegion();
 			}
-			
 		}
 	}
 }

@@ -28,7 +28,7 @@ namespace TLD_Mod1
         {
             public static void Postfix()
             {
-                if (settingMatchesGamemode()) { RevealMap.RevealMap_Melon.RevealNextFrame(); }
+                if (settingMatchesGamemode()) { RevealMap.RevealMap_Melon.Reveal(); }
             }
             
         }
